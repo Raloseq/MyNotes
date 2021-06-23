@@ -6,8 +6,8 @@
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
-        <link href="/public/style.css" rel="stylesheet">
-        <title>Document</title>
+        <link href="../public/style.css" rel="stylesheet">
+        <title>My Notes</title>
     </head>
 <body>
     <div class="wrapper">
@@ -32,7 +32,7 @@
             </section>
         </main>
         <footer class="footer">
-            <p>Notatki - projekt w kursie PHP</p>
+            <p>Footer</p>
         </footer>
     </div>
 </body>
