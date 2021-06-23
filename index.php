@@ -18,20 +18,29 @@ $view = new View();
 
 $viewParams = [];
 
-if($action === 'create') {
-    $page = 'create';
-    $created = false;
-    if(!empty($_POST)) {
-        $created = true;
+switch ($action) {
+    case 'create':
+        $page = 'create';
+        $created = false;
+        if(!empty($_POST)) {
+            $created = true;
+            $viewParams = [
+                'title' => $_POST['title'],
+                'description' => $_POST['description']
+            ];
+        }
+
+        $viewParams['created'] = $created;
+        break;
+    case 'show':
         $viewParams = [
             'title' => $_POST['title'],
             'description' => $_POST['description']
         ];
-    }
-
-    $viewParams['created'] = $created;
-} else {
-    $page = 'list';
+        break;
+    default:
+        $page = 'list';
+        break;
 }
 
 $view->render($page, $viewParams);
