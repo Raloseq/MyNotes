@@ -23,7 +23,9 @@
             </ul>
         </nav>
         <section>
-            ...
+            <?php
+                require_once("templates/pages/$page.php");
+            ?>
         </section>
     </main>
     <footer>

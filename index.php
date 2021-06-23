@@ -7,14 +7,23 @@ namespace App;
 require_once("src/Utils/debug.php");
 require_once("src/View.php");
 
-$action = $_GET['action'] ?? null;
+//error_reporting(0);
+//ini_set('display_errors', '0');
+
+const DEFAULT_ACTION = 'list';
+
+$action = $_GET['action'] ?? DEFAULT_ACTION;
 
 $view = new View();
 
+$viewParams = [];
+
 if($action === 'create') {
-    include_once("templates/pages/list.php");
+    $page = 'create';
+    $viewParams['resultCreate'] = "done";
 } else {
-    include_once("templates/pages/create.php");
+    $page = 'list';
+    $viewParams['resultList'] = "displaying notes";
 }
 
-
+$view->render($page, $viewParams);
