@@ -7,6 +7,8 @@ namespace App;
 require_once "src/Utils/debug.php";
 require_once "src/Controller.php";
 
+$configuration = require_once "config/config.php";
+
 //error_reporting(0);
 //ini_set('display_errors', '0');
 
@@ -14,6 +16,6 @@ $request = [
     'get' => $_GET,
     'post' => $_POST
 ];
-
+Controller::initConfiguration($configuration);
 $controller = new Controller($request);
 $controller->run();
