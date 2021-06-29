@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
-USE App\Exception\AppException;
-use Cassandra\Exception\ConfigurationException;
+use App\Exception\AppException;
+use App\Exception\ConfigurationException;
 use Throwable;
 
 require_once "src/Utils/debug.php";
@@ -30,8 +30,6 @@ try {
     echo "Something went wrong with configuration";
 } catch (AppException $exception) {
     echo "Something went wrong";
-    echo $exception->getMessage();
 } catch (Throwable $exception) {
     echo "Something went wrong ;D";
-    dump($exception);
 }
