@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App;
 
-
-use http\Params;
-
 class Request
 {
     private array $get = [];
