@@ -42,9 +42,12 @@ class Database
     }
 
 
-    public function getNotes(string $sortBy, string $sortOrder): array
+    public function getNotes(int $pageNumber, int $pageSize, string $sortBy, string $sortOrder): array
     {
         try {
+            $limit = $pageSize;
+            $offset = ($pageNumber - 1) * $pageSize;
+
             if(!in_array($sortBy, ['created', 'title'])) {
                 $sortBy = 'title';
             }
@@ -52,11 +55,26 @@ class Database
                 $sortOrder = 'desc';
             }
 
-            $query = "SELECT id, title, created FROM mynotes ORDER BY $sortBy $sortOrder";
+            $query = "SELECT id, title, created FROM mynotes ORDER BY $sortBy $sortOrder LIMIT $offset, $limit";
             $result = $this->conn->query($query);
             return $result->fetchAll(PDO::FETCH_ASSOC);;
         } catch(Throwable $exception) {
             throw new StorageException('Cant get notes', 400);
+        }
+    }
+
+    public function getCount(): int
+    {
+        try {
+            $query = "SELECT count(*) AS cn FROM mynotes";
+            $result = $this->conn->query($query);
+            $result =  $result->fetch(PDO::FETCH_ASSOC);
+            if($result === false) {
+                throw new StorageException('Cant get information about how much notes u have',400);
+            }
+            return (int) $result['cn'];
+        } catch(Throwable $exception) {
+            throw new StorageException('Cant get information about how much notes u have', 400);
         }
     }
 
