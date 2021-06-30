@@ -6,6 +6,9 @@
             <li>Description <?php echo $note['description']?></li>
             <li>Created at: <?php echo $note['created']?></li>
         </ul>
+        <a href="/?action=edit&id=<?php echo $note['id']?>">
+            <button>edit</button>
+        </a>
     <?php else: ?>
         <div>
             U don't have any notes.

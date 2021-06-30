@@ -2,15 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Controller;
 
-require_once "src/Database.php";
-require_once "src/View.php";
-require_once "src/Request.php";
-require_once "src/Exception/ConfigurationException.php";
-
+use App\Database;
+use App\Request;
+use App\View;
 use App\Exception\ConfigurationException;
-use App\Exception\NotFoundException;
 
 abstract class AbstractController
 {
@@ -47,6 +44,23 @@ abstract class AbstractController
         }
 
         $this->$action();
+    }
+
+    protected function redirect(string $to, array $params): void
+    {
+        $location = $to;
+
+        if(count($params)) {
+            $queryParams = [];
+            foreach ($params as $key => $val) {
+                $queryParams[] = urlencode($key). '=' . urlencode($val);
+            }
+
+            $queryParams = implode('&',$queryParams);
+            $location .= '?' . $queryParams;
+        }
+        header("Location: $location");
+        exit;
     }
 
     private function action(): string

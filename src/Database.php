@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App;
 
-require_once "Exception/StorageException.php";
-require_once "Exception/NotFoundException.php";
-
 use App\Exception\ConfigurationException;
 use App\Exception\StorageException;
 use App\Exception\NotFoundException;
@@ -66,6 +63,19 @@ class Database
             $this->conn->exec($query);
         } catch (Throwable $exception) {
             throw new StorageException("Cant create note", 400);
+        }
+    }
+
+    public function editNote(int $id, array $data): void
+    {
+        try {
+            $title = $this->conn->quote($data['title']);
+            $description = $this->conn->quote($data['description']);
+
+            $query = "UPDATE mynotes SET title = $title, description = $description WHERE id = $id";
+            $this->conn->exec($query);
+        } catch (Throwable $exception) {
+            throw new StorageException('Cant update note', 400);
         }
     }
 

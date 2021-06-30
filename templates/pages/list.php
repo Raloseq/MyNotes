@@ -7,6 +7,9 @@
                         case 'created':
                             echo "Note created";
                             break;
+                        case 'edited':
+                            echo 'Note updated';
+                            break;
                     }
                 }
             ?>
