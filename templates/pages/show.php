@@ -2,9 +2,9 @@
     <?php $note = $params['note'] ?? null ?>
     <?php if($note) :?>
         <ul>
-            <li>Title: <?php echo htmlentities($note['title'])?></li>
-            <li>Description <?php echo htmlentities($note['description'])?></li>
-            <li>Created at: <?php echo htmlentities($note['created'])?></li>
+            <li>Title: <?php echo $note['title']?></li>
+            <li>Description <?php echo $note['description']?></li>
+            <li>Created at: <?php echo $note['created']?></li>
         </ul>
     <?php else: ?>
         <div>
