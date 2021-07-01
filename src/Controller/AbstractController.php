@@ -37,13 +37,18 @@ abstract class AbstractController
 
     final public function run(): void
     {
-        $action = $this->action() . 'Action';
+        try {
+            $action = $this->action() . 'Action';
 
-        if(!method_exists($this,$action)) {
-            $action = self::DEFAULT_ACTION . 'Action';
+            if(!method_exists($this,$action)) {
+                $action = self::DEFAULT_ACTION . 'Action';
+            }
+            $this->$action();
+        } catch (StorageException $exception) {
+            $this->view->render('error',['message' => $exception->getMessage()]);
+        } catch (NotFoundException $exception) {
+            $this->redirect('/',['error' => 'NoteNotFound']);
         }
-
-        $this->$action();
     }
 
     final protected function redirect(string $to, array $params): void
