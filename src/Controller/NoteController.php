@@ -15,7 +15,7 @@ class NoteController extends AbstractController
                 'title' => $this->request->postParam('title'),
                 'description' => $this->request->postParam('description')
             ];
-            $this->database->createNote($noteData);
+            $this->database->create($noteData);
             $this->redirect('/',['before' => 'created']);
 
         }
@@ -41,11 +41,11 @@ class NoteController extends AbstractController
         }
 
         if($phrase) {
-            $noteList = $this->database->searchNotes($phrase,$pageNumber,$pageSize, $sortBy, $sortOrder);
-            $notes = $this->database->getSearchCount($phrase);
+            $noteList = $this->database->search($phrase,$pageNumber,$pageSize, $sortBy, $sortOrder);
+            $notes = $this->database->searchCount($phrase);
         } else {
-            $noteList = $this->database->getNotes($pageNumber,$pageSize, $sortBy, $sortOrder);
-            $notes = $this->database->getCount();
+            $noteList = $this->database->list($pageNumber,$pageSize, $sortBy, $sortOrder);
+            $notes = $this->database->count();
         }
 
         $viewParams = [
@@ -75,7 +75,7 @@ class NoteController extends AbstractController
                 'title' => $this->request->postParam('title'),
                 'description' => $this->request->postParam('description')
             ];
-            $this->database->editNote($noteId, $noteData);
+            $this->database->edit($noteId, $noteData);
             $this->redirect('/',['before' => 'edited']);
         }
 
@@ -86,7 +86,7 @@ class NoteController extends AbstractController
     {
         if($this->request->isPost()) {
             $noteId = (int) $this->request->postParam('id');
-            $this->database->deleteNote($noteId);
+            $this->database->delete($noteId);
             $this->redirect('/',['before' => 'deleted']);
         }
 
@@ -100,6 +100,6 @@ class NoteController extends AbstractController
             $this->redirect('/',['error' => 'missingNoteId']);
         }
 
-        return $this->database->getNote($noteId);
+        return $this->database->get($noteId);
     }
 }
